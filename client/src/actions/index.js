@@ -13,6 +13,6 @@ export function fetchCategories () {
 
   return {
     type: FETCH_CATEGORIES,
-    data: request
+    payload: request
   }
 }

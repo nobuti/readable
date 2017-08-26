@@ -11,6 +11,7 @@ import reducers from "./reducers";
 import PostList from './components/postList';
 import PostNew from './components/postNew';
 import PostDetail from './components/postDetail';
+import NotFound from './components/notFound';
 
 const createStoreWithMiddlewares = applyMiddleware(promise)(createStore);
 
@@ -19,9 +20,10 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route path='/' exact component={PostList} />
-        <Route path='/category/:id' component={PostList} />
+        <Route path='/category/:category' component={PostList} />
         <Route path='/post/new' component={PostNew} />
         <Route path='/post/:id' component={PostDetail} />
+        <Route component={NotFound}/>
       </Switch>
     </BrowserRouter>
   </Provider>,

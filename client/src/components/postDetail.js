@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
 
 import Logo from './logo';
-import { fetchPosts, fetchComments, votePost, voteComment, VOTE } from '../actions';
+import { fetchPosts, fetchComments, votePost, voteComment, VOTE, deletePost, deleteComment } from '../actions';
 import SortCommentsOptions from './sortComments';
 
 class PostDetail extends Component {
@@ -73,7 +73,7 @@ class PostDetail extends Component {
   renderComments () {
     const postComments = this.sortComments();
     const postID = this.getPostID();
-    const { voteComment } = this.props;
+    const { voteComment, deleteComment } = this.props;
 
     if (postComments.length > 0) {
       return (
@@ -88,7 +88,11 @@ class PostDetail extends Component {
                   <h2>{title}</h2>
                   <p>{body}</p>
                   <small>Submitted by {author}, {format(timestamp, 'D MMM YYYY, HH:ss')}</small>
-
+                  <button onClick={(e) => {
+                    deleteComment(postID, id)
+                  }}>
+                    Delete comment
+                  </button>
                   <div>
                     <button onClick={(e) => {
                       voteComment(postID, id, VOTE.UP);
@@ -113,7 +117,7 @@ class PostDetail extends Component {
   }
 
   render () {
-    const { posts } = this.props;
+    const { posts, deletePost, history } = this.props;
     const fetched = this.arePostsFetched();
     const postID = this.getPostID();
 
@@ -140,6 +144,13 @@ class PostDetail extends Component {
           <Link to='/post/new'>
             Submit
           </Link>
+          <button onClick={(e) => {
+            deletePost(postID, () => {
+              history.push("/");
+            })
+          }}>
+            Delete post
+          </button>
           { this.renderPost(post) }
           { this.renderComments() }
         </div>
@@ -155,4 +166,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchComments, fetchPosts, votePost, voteComment })(PostDetail);
+export default connect(mapStateToProps, { fetchComments, fetchPosts, votePost, voteComment, deletePost, deleteComment })(PostDetail);

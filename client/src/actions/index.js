@@ -7,10 +7,12 @@ export const FETCH_POSTS = 'fetchPosts';
 export const SORT_POSTS = 'sortPosts';
 export const UP_VOTE_POST = 'upVotePost';
 export const DOWN_VOTE_POST = 'downVotePost';
+export const DELETE_POST = 'deletePost';
 export const FETCH_COMMENTS = 'fetchComments';
 export const SORT_COMMENTS = 'sortComments';
 export const UP_VOTE_COMMENT = 'upVoteComment';
 export const DOWN_VOTE_COMMENT = 'downVoteComment';
+export const DELETE_COMMENT = 'deleteComment';
 
 export const SORT_POSTS_BY = {
   VOTES: 'voteScore',
@@ -153,6 +155,38 @@ export function voteComment (postID, commentID, option) {
 
   return {
     type: option === VOTE.UP ? UP_VOTE_COMMENT : DOWN_VOTE_COMMENT,
+    payload: commentID,
+    meta: {
+      post: postID
+    }
+  }
+}
+
+export function deletePost (postID, callback) {
+  const url = `${URL}/posts/${postID}`;
+  const config = {
+    headers: {'Authorization': APIKEY}
+  }
+
+  axios.delete(url, config)
+  .then(() => callback());
+
+  return {
+    type: DELETE_POST,
+    payload: postID
+  }
+}
+
+export function deleteComment (postID, commentID) {
+  const url = `${URL}/comments/${commentID}`;
+  const config = {
+    headers: {'Authorization': APIKEY}
+  }
+
+  axios.delete(url, config);
+
+  return {
+    type: DELETE_COMMENT,
     payload: commentID,
     meta: {
       post: postID

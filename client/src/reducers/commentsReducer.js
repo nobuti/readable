@@ -1,7 +1,7 @@
-import { FETCH_COMMENTS, SORTBY, SORT_COMMENTS, UP_VOTE_COMMENT, DOWN_VOTE_COMMENT } from '../actions';
+import { FETCH_COMMENTS, SORT_POSTS_BY, SORT_COMMENTS, UP_VOTE_COMMENT, DOWN_VOTE_COMMENT } from '../actions';
 
 const initialState = {
-  sort:SORTBY.VOTES,
+  sort:SORT_POSTS_BY.VOTES,
   data: {}
 }
 

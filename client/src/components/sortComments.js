@@ -1,21 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { SORT_POSTS_BY, sortPosts } from '../actions';
+import { SORT_COMMENTS_BY, sortComments } from '../actions';
 
 export const LABEL = {
   voteScore: 'Top',
-  comments: 'Popular',
   timestamp: 'New'
 }
 
-const SortPostsOptions = ({ activeSort, sortPosts }) => {
-  const buttons = Object.values(SORT_POSTS_BY).map((sortKey) => {
+const SortCommentsOptions = ({ activeSort, sortComments }) => {
+  const buttons = Object.values(SORT_COMMENTS_BY).map((sortKey) => {
     return (
       <li key={sortKey}>
         <button
           className={activeSort === sortKey ? 'active' : ''}
           onClick={(e) => {
-              sortPosts(sortKey)
+              sortComments(sortKey)
             }
           }
         >{LABEL[sortKey]}</button>
@@ -32,8 +31,8 @@ const SortPostsOptions = ({ activeSort, sortPosts }) => {
 
 const mapStateToProps = state => {
   return {
-    activeSort: state.posts.sort
+    activeSort: state.comments.sort
   }
 }
 
-export default connect(mapStateToProps, { sortPosts })(SortPostsOptions);
+export default connect(mapStateToProps, { sortComments })(SortCommentsOptions);

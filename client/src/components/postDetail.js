@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import Logo from './logo';
 import { fetchPosts, fetchComments, votePost, voteComment, VOTE } from '../actions';
+import SortCommentsOptions from './sortComments';
 
 class PostDetail extends Component {
   componentDidMount () {
@@ -60,7 +61,7 @@ class PostDetail extends Component {
     const postID = this.getPostID();
     const postComments = comments.data[postID];
 
-    if (Object.keys(postComments).length === 0) {
+    if (!postComments || Object.keys(postComments).length === 0) {
       return [];
     }
 
@@ -76,30 +77,33 @@ class PostDetail extends Component {
 
     if (postComments.length > 0) {
       return (
-        <ul>
-        {
-          postComments.map((comment) => {
-            const { id, author, title, body, timestamp, voteScore } = comment;
-            return (
-              <li key={id}>
-                <h2>{title}</h2>
-                <p>{body}</p>
-                <small>Submitted by {author}, {format(timestamp, 'D MMM YYYY, HH:ss')}</small>
+        <div>
+          <SortCommentsOptions />
+          <ul>
+          {
+            postComments.map((comment) => {
+              const { id, author, title, body, timestamp, voteScore } = comment;
+              return (
+                <li key={id}>
+                  <h2>{title}</h2>
+                  <p>{body}</p>
+                  <small>Submitted by {author}, {format(timestamp, 'D MMM YYYY, HH:ss')}</small>
 
-                <div>
-                  <button onClick={(e) => {
-                    voteComment(postID, id, VOTE.UP);
-                  }}>+1</button>
-                  {voteScore} votes
-                  <button onClick={(e) => {
-                    voteComment(postID, id, VOTE.DOWN);
-                  }}>-1</button>
-                </div>
-              </li>
-            );
-          })
-        }
-        </ul>
+                  <div>
+                    <button onClick={(e) => {
+                      voteComment(postID, id, VOTE.UP);
+                    }}>+1</button>
+                    {voteScore} votes
+                    <button onClick={(e) => {
+                      voteComment(postID, id, VOTE.DOWN);
+                    }}>-1</button>
+                  </div>
+                </li>
+              );
+            })
+          }
+          </ul>
+        </div>
       );
     } else {
       return (

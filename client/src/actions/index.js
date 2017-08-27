@@ -12,9 +12,14 @@ export const SORT_COMMENTS = 'sortComments';
 export const UP_VOTE_COMMENT = 'upVoteComment';
 export const DOWN_VOTE_COMMENT = 'downVoteComment';
 
-export const SORTBY = {
+export const SORT_POSTS_BY = {
   VOTES: 'voteScore',
   COMMENTS: 'comments',
+  DATE: 'timestamp'
+}
+
+export const SORT_COMMENTS_BY = {
+  VOTES: 'voteScore',
   DATE: 'timestamp'
 }
 
@@ -105,6 +110,13 @@ export function fetchComments (postID) {
 export function sortPosts (byKey) {
   return {
     type: SORT_POSTS,
+    payload: byKey
+  }
+}
+
+export function sortComments (byKey) {
+  return {
+    type: SORT_COMMENTS,
     payload: byKey
   }
 }

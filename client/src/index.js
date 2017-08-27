@@ -22,7 +22,7 @@ ReactDOM.render(
         <Route path='/' exact component={PostList} />
         <Route path='/category/:category' component={PostList} />
         <Route path='/post/new' component={PostNew} />
-        <Route path='/post/:id' component={PostDetail} />
+        <Route path='/post/:post' component={PostDetail} />
         <Route component={NotFound}/>
       </Switch>
     </BrowserRouter>

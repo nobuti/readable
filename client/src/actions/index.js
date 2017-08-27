@@ -5,13 +5,22 @@ import { URL, APIKEY } from '../config';
 export const FETCH_CATEGORIES = 'fetchCategories';
 export const FETCH_POSTS = 'fetchPosts';
 export const SORT_POSTS = 'sortPosts';
-export const UP_VOTE_POST = 'upVote';
-export const DOWN_VOTE_POST = 'downVote';
+export const UP_VOTE_POST = 'upVotePost';
+export const DOWN_VOTE_POST = 'downVotePost';
+export const FETCH_COMMENTS = 'fetchComments';
+export const SORT_COMMENTS = 'sortComments';
+export const UP_VOTE_COMMENT = 'upVoteComment';
+export const DOWN_VOTE_COMMENT = 'downVoteComment';
 
 export const SORTBY = {
   VOTES: 'voteScore',
   COMMENTS: 'comments',
   DATE: 'timestamp'
+}
+
+export const VOTE = {
+  UP: 'upVote',
+  DOWN: 'downVote'
 }
 
 export function fetchCategories () {
@@ -71,6 +80,28 @@ export function fetchPosts () {
   }
 }
 
+export function fetchComments (postID) {
+  const url = `${URL}/posts/${postID}/comments`;
+  const config = {
+    headers: {'Authorization': APIKEY}
+  }
+
+  const request = axios.get(url, config)
+    .then(comments => {
+      let result = {};
+      result[postID] = comments.data.reduce((result, comment) => {
+        result[comment.id] = comment;
+        return result;
+      }, {});
+      return result;
+    })
+
+  return {
+    type: FETCH_COMMENTS,
+    payload: request
+  }
+}
+
 export function sortPosts (byKey) {
   return {
     type: SORT_POSTS,
@@ -78,8 +109,8 @@ export function sortPosts (byKey) {
   }
 }
 
-export function votePost (postId, option) {
-  const url = `${URL}/posts/${postId}`;
+export function votePost (postID, option) {
+  const url = `${URL}/posts/${postID}`;
   const config = {
     headers: {'Authorization': APIKEY}
   }
@@ -91,7 +122,28 @@ export function votePost (postId, option) {
   axios.post(url, data, config);
 
   return {
-    type: option,
-    payload: postId
+    type: option === VOTE.UP ? UP_VOTE_POST : DOWN_VOTE_POST,
+    payload: postID
+  }
+}
+
+export function voteComment (postID, commentID, option) {
+  const url = `${URL}/comments/${commentID}`;
+  const config = {
+    headers: {'Authorization': APIKEY}
+  }
+
+  const data = {
+    option
+  }
+
+  axios.post(url, data, config);
+
+  return {
+    type: option === VOTE.UP ? UP_VOTE_COMMENT : DOWN_VOTE_COMMENT,
+    payload: commentID,
+    meta: {
+      post: postID
+    }
   }
 }

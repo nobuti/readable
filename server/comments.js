@@ -9,9 +9,9 @@ const defaultData = {
     timestamp: 1468166872634,
     body: 'Hi there! I am a COMMENT.',
     author: 'thingtwo',
-    voteScore: 6,
+    voteScore: 3,
     deleted: false,
-    parentDeleted: false 
+    parentDeleted: false
   },
   "8tu4bsun805n8un48ve89": {
     id: '8tu4bsun805n8un48ve89',
@@ -19,7 +19,7 @@ const defaultData = {
     timestamp: 1469479767190,
     body: 'Comments. Are. Cool.',
     author: 'thingone',
-    voteScore: -5,
+    voteScore: 3,
     deleted: false,
     parentDeleted: false
   }
@@ -48,7 +48,7 @@ function get (token, id) {
     res(
       comments[id].deleted || comments[id].parentDeleted
         ? {}
-        : comments[id]      
+        : comments[id]
       )
   })
 }
@@ -67,7 +67,7 @@ function add (token, comment) {
       deleted: false,
       parentDeleted: false
     }
-     
+
     res(comments[comment.id])
   })
 }

@@ -6,7 +6,9 @@ import { fetchCategories } from '../actions';
 
 class Categories extends Component {
   componentDidMount () {
-    this.props.fetchCategories();
+    const { categories, fetchCategories } = this.props;
+    const fetched = categories && categories.fetched;
+    !fetched && fetchCategories();
   }
 
   renderCategory (name, path) {
@@ -31,11 +33,11 @@ class Categories extends Component {
   render () {
     const { categories } = this.props;
 
-    if (categories) {
+    if (categories.fetched) {
       return (
         <ul>
           { this.renderCategory('all', '') }
-          { this.renderCategories(categories) }
+          { this.renderCategories(categories.data) }
         </ul>
       );
     }

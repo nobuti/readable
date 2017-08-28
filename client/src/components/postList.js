@@ -14,9 +14,7 @@ class PostList extends Component {
     const { posts, fetchPosts } = this.props;
     const fetched = posts && posts.fetched;
 
-    if (!fetched) {
-      fetchPosts();
-    }
+    !fetched && fetchPosts();
   }
 
   filterAndSort () {

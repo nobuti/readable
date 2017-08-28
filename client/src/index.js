@@ -9,7 +9,7 @@ import promise from "redux-promise";
 
 import reducers from "./reducers";
 import PostList from './components/postList';
-import PostNew from './components/postNew';
+import PostEdition from './components/postEdition';
 import PostDetail from './components/postDetail';
 import NotFound from './components/notFound';
 
@@ -21,7 +21,8 @@ ReactDOM.render(
       <Switch>
         <Route path='/' exact component={PostList} />
         <Route path='/category/:category' component={PostList} />
-        <Route path='/post/new' component={PostNew} />
+        <Route path='/post/:post/edit' exact component={PostEdition} />
+        <Route path='/post/new' component={PostEdition} />
         <Route path='/post/:post' component={PostDetail} />
         <Route component={NotFound}/>
       </Switch>

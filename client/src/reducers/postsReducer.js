@@ -1,4 +1,14 @@
-import { FETCH_POSTS, SORT_POSTS, SORT_POSTS_BY, UP_VOTE_POST, DOWN_VOTE_POST, DELETE_POST, DELETE_COMMENT } from '../actions';
+import {
+  FETCH_POSTS,
+  SORT_POSTS,
+  SORT_POSTS_BY,
+  UP_VOTE_POST,
+  DOWN_VOTE_POST,
+  DELETE_POST,
+  DELETE_COMMENT,
+  NEW_POST,
+  UPDATE_POST
+} from '../actions';
 
 const initialState = {
   fetched: false,
@@ -60,6 +70,41 @@ export default function (state = initialState, action) {
       ...state.data
     }
     data[action.meta.post].comments -= 1;
+
+    return {
+      ...state,
+      data
+    }
+
+  case NEW_POST:
+    data = {
+      ...state.data
+    }
+
+    const newData = {
+      comments: 0,
+      voteScore: 0
+    }
+
+    data[action.payload.id] = {
+      ...action.payload,
+      ...newData
+    }
+
+    return {
+      ...state,
+      data
+    }
+
+  case UPDATE_POST:
+    data = {
+      ...state.data
+    }
+
+    data[action.payload.id] = {
+      ...state.data[action.payload.id],
+      ...action.payload
+    }
 
     return {
       ...state,

@@ -55,6 +55,14 @@ class PostDetail extends Component {
     );
   }
 
+  deletePostHandler = (e) => {
+    const postID = this.getPostID();
+    const { deletePost, history } = this.props;
+    deletePost(postID, () => {
+      history.push("/");
+    })
+  }
+
   sortComments () {
     const { comments } = this.props;
     const sortKey = comments.sort;
@@ -117,7 +125,7 @@ class PostDetail extends Component {
   }
 
   render () {
-    const { posts, deletePost, history } = this.props;
+    const { posts } = this.props;
     const fetched = this.arePostsFetched();
     const postID = this.getPostID();
 
@@ -144,11 +152,10 @@ class PostDetail extends Component {
           <Link to='/post/new'>
             Submit
           </Link>
-          <button onClick={(e) => {
-            deletePost(postID, () => {
-              history.push("/");
-            })
-          }}>
+          <Link to={`/post/${postID}/edit`}>
+            Edit
+          </Link>
+          <button onClick={this.deletePostHandler}>
             Delete post
           </button>
           { this.renderPost(post) }

@@ -13,6 +13,8 @@ export const SORT_COMMENTS = 'sortComments';
 export const UP_VOTE_COMMENT = 'upVoteComment';
 export const DOWN_VOTE_COMMENT = 'downVoteComment';
 export const DELETE_COMMENT = 'deleteComment';
+export const NEW_POST = 'newPost';
+export const UPDATE_POST = 'updatePost';
 
 export const SORT_POSTS_BY = {
   VOTES: 'voteScore',
@@ -28,6 +30,20 @@ export const SORT_COMMENTS_BY = {
 export const VOTE = {
   UP: 'upVote',
   DOWN: 'downVote'
+}
+
+const uuidv4 = () => {
+  var s = [];
+  var hexDigits = "0123456789abcdef";
+  for (var i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+  }
+  s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+  s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+  s[8] = s[13] = s[18] = s[23] = "-";
+
+  var uuid = s.join("");
+  return uuid;
 }
 
 export function fetchCategories () {
@@ -191,5 +207,53 @@ export function deleteComment (postID, commentID) {
     meta: {
       post: postID
     }
+  }
+}
+
+export function savePost (values, callback) {
+  const url = `${URL}/posts`;
+  const config = {
+    headers: {'Authorization': APIKEY}
+  }
+  const metadata = {
+    id: uuidv4(),
+    timestamp: Date.now()
+  }
+
+  const data = {
+    ...values,
+    ...metadata
+  }
+
+  axios.post(url, data, config)
+    .then(() => callback());
+
+  return {
+    type: NEW_POST,
+    payload: data
+  }
+}
+
+export function updatePost (postID, values, callback) {
+  const url = `${URL}/posts/${postID}`;
+  const config = {
+    headers: {'Authorization': APIKEY}
+  }
+
+  const metadata = {
+    id: postID
+  }
+
+  const data = {
+    ...values,
+    ...metadata
+  }
+
+  axios.put(url, values, config)
+    .then(() => callback());
+
+  return {
+    type: UPDATE_POST,
+    payload: data
   }
 }

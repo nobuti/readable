@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import PostForm from './postForm';
 import Logo from './logo';
-import { fetchCategories, fetchPosts } from '../actions';
+import { fetchCategories, fetchPosts, savePost, updatePost } from '../actions';
 
 class PostNew extends Component {
   componentDidMount () {
@@ -15,12 +16,27 @@ class PostNew extends Component {
   }
 
   submit = (values) => {
-    // print the form values to the console
-    console.log(values)
+    const post = this.getPostID();
+    const { savePost, updatePost, history } = this.props;
+    if (post) {
+      updatePost(post, values, () => {
+        history.push(`/post/${post}`);
+      });
+    } else {
+      savePost(values, () => {
+        history.push('/');
+      });
+    }
+  }
+
+  getPostID () {
+    const { match: { params: { post } = {} } } = this.props;
+    return post;
   }
 
   getInitialValues () {
-    const { match: { params: { post } = {} }, posts } = this.props;
+    const { posts } = this.props;
+    const post = this.getPostID();
     if (post) {
       return posts.data[post];
     }
@@ -33,6 +49,7 @@ class PostNew extends Component {
     const fetchedCategories = categories && categories.fetched;
     const fetchedPosts = posts && posts.fetched;
     const fetched = fetchedCategories && fetchedPosts;
+    const post = this.getPostID();
 
     if (!fetched) {
       return (
@@ -43,6 +60,7 @@ class PostNew extends Component {
     return (
       <div>
         <Logo />
+        { post && <Link to={`/post/${post}`}>Back</Link> }
         <PostForm initialValues={ this.getInitialValues() } categories={categories.data} onSubmit={this.submit} />
       </div>
     )
@@ -56,4 +74,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchCategories, fetchPosts })(PostNew);
+export default connect(mapStateToProps, { fetchCategories, fetchPosts, savePost, updatePost })(PostNew);

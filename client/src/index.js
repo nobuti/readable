@@ -21,8 +21,8 @@ ReactDOM.render(
       <Switch>
         <Route path='/' exact component={PostList} />
         <Route path='/category/:category' component={PostList} />
+        <Route path='/post/new' exact component={PostEdition} />
         <Route path='/post/:post/edit' exact component={PostEdition} />
-        <Route path='/post/new' component={PostEdition} />
         <Route path='/post/:post' component={PostDetail} />
         <Route component={NotFound}/>
       </Switch>

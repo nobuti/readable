@@ -4,8 +4,10 @@ import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
 
 import Logo from './logo';
-import { fetchPosts, fetchComments, votePost, voteComment, VOTE, deletePost, deleteComment } from '../actions';
+import { fetchPosts, fetchComments, votePost, VOTE, deletePost } from '../actions';
 import SortCommentsOptions from './sortComments';
+import Comment from './commentDetail';
+import Votes from './voteControl';
 
 class PostDetail extends Component {
   componentDidMount () {
@@ -32,9 +34,33 @@ class PostDetail extends Component {
     return match.params.post;
   }
 
-  renderPost (post) {
+  deletePost = () => {
+    const postID = this.getPostID();
+    const { deletePost, history } = this.props;
+    deletePost(postID, () => {
+      history.push("/");
+    })
+  }
+
+  vote = (option) => {
+    const post = this.getPostID();
     const { votePost } = this.props;
-    const { id, author, title, body, timestamp, voteScore } = post;
+    votePost(post, option);
+  }
+
+  voteUp = () => {
+    this.vote(VOTE.UP);
+  }
+
+  voteDown = () => {
+    this.vote(VOTE.DOWN);
+  }
+
+  renderPost () {
+    const { posts } = this.props;
+    const postID = this.getPostID();
+    const post = posts.data[postID];
+    const { author, title, body, timestamp, voteScore } = post;
 
     return (
       <div>
@@ -42,25 +68,9 @@ class PostDetail extends Component {
         <h6>Submitted by {author}, {format(timestamp, 'D MMM YYYY')}</h6>
         <p>{ body }</p>
 
-        <div>
-          <button onClick={(e) => {
-            votePost(id, VOTE.UP);
-          }}>+1</button>
-          {voteScore} votes
-          <button onClick={(e) => {
-            votePost(id, VOTE.DOWN);
-          }}>-1</button>
-        </div>
+        <Votes score={voteScore} voteUp={this.voteUp} voteDown={this.voteDown} />
       </div>
     );
-  }
-
-  deletePostHandler = (e) => {
-    const postID = this.getPostID();
-    const { deletePost, history } = this.props;
-    deletePost(postID, () => {
-      history.push("/");
-    })
   }
 
   sortComments () {
@@ -81,7 +91,6 @@ class PostDetail extends Component {
   renderComments () {
     const postComments = this.sortComments();
     const postID = this.getPostID();
-    const { voteComment, deleteComment } = this.props;
 
     if (postComments.length > 0) {
       return (
@@ -90,27 +99,9 @@ class PostDetail extends Component {
           <ul>
           {
             postComments.map((comment) => {
-              const { id, author, title, body, timestamp, voteScore } = comment;
+              const { id } = comment;
               return (
-                <li key={id}>
-                  <h2>{title}</h2>
-                  <p>{body}</p>
-                  <small>Submitted by {author}, {format(timestamp, 'D MMM YYYY, HH:ss')}</small>
-                  <button onClick={(e) => {
-                    deleteComment(postID, id)
-                  }}>
-                    Delete comment
-                  </button>
-                  <div>
-                    <button onClick={(e) => {
-                      voteComment(postID, id, VOTE.UP);
-                    }}>+1</button>
-                    {voteScore} votes
-                    <button onClick={(e) => {
-                      voteComment(postID, id, VOTE.DOWN);
-                    }}>-1</button>
-                  </div>
-                </li>
+                <Comment key={id} post={postID} {...comment} />
               );
             })
           }
@@ -158,7 +149,7 @@ class PostDetail extends Component {
           <button onClick={this.deletePostHandler}>
             Delete post
           </button>
-          { this.renderPost(post) }
+          { this.renderPost() }
           { this.renderComments() }
         </div>
       );
@@ -173,4 +164,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchComments, fetchPosts, votePost, voteComment, deletePost, deleteComment })(PostDetail);
+export default connect(mapStateToProps, { fetchComments, fetchPosts, votePost, deletePost })(PostDetail);

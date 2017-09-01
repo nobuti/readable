@@ -1,8 +1,8 @@
 import { FETCH_COMMENTS, SORT_POSTS_BY, SORT_COMMENTS, UP_VOTE_COMMENT, DOWN_VOTE_COMMENT, DELETE_COMMENT } from '../actions';
 
 const initialState = {
-  sort:SORT_POSTS_BY.VOTES,
-  data: {}
+  fetched: false,
+  sort:SORT_POSTS_BY.VOTES
 }
 
 export default function (state = initialState, action) {
@@ -12,6 +12,7 @@ export default function (state = initialState, action) {
   case FETCH_COMMENTS:
     return {
       ...state,
+      fetched: true,
       data: action.payload
     }
 

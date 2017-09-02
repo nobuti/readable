@@ -1,4 +1,13 @@
-import { FETCH_COMMENTS, SORT_POSTS_BY, SORT_COMMENTS, UP_VOTE_COMMENT, DOWN_VOTE_COMMENT, DELETE_COMMENT } from '../actions';
+import {
+  FETCH_COMMENTS,
+  SORT_POSTS_BY,
+  SORT_COMMENTS,
+  UP_VOTE_COMMENT,
+  DOWN_VOTE_COMMENT,
+  DELETE_COMMENT,
+  NEW_COMMENT,
+  UPDATE_COMMENT
+} from '../actions';
 
 const initialState = {
   fetched: false,
@@ -57,6 +66,31 @@ export default function (state = initialState, action) {
       ...state,
       data
     }
+
+  case NEW_COMMENT:
+    data = {
+      ...state.data
+    }
+
+    data[action.payload.parentId][action.payload.id] = action.payload;
+
+    return {
+      ...state,
+      data
+    }
+
+  case UPDATE_COMMENT:
+    data = {
+      ...state.data
+    }
+
+    data[action.payload.parentId][action.payload.id] = action.payload;
+
+    return {
+      ...state,
+      data
+    }
+
 
   default:
     return state;

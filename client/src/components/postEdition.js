@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom';
 
 import PostForm from './postForm';
 import Logo from './logo';
-import { fetchCategories, fetchPosts, savePost, updatePost } from '../actions';
+import {
+  fetchCategories,
+  fetchPosts,
+  savePost,
+  updatePost
+} from '../actions';
 
-class PostNew extends Component {
+class PostEdition extends Component {
   componentDidMount () {
     const { categories, posts, fetchCategories, fetchPosts } = this.props;
     const fetchedCategories = categories && categories.fetched;
@@ -74,4 +79,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchCategories, fetchPosts, savePost, updatePost })(PostNew);
+export default connect(mapStateToProps,
+  {
+    fetchCategories,
+    fetchPosts,
+    savePost,
+    updatePost
+  })(PostEdition);

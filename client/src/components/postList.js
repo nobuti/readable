@@ -56,7 +56,7 @@ class PostList extends Component {
     const props = this.props;
     const { posts, match } = this.props;
 
-    if (!posts || !posts.data) {
+    if (!posts.fetched) {
       return (
         <div>Loading...</div>
       );

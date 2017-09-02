@@ -4,29 +4,29 @@ import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
 
 import Logo from './logo';
-import { fetchPosts, fetchComments, votePost, VOTE, deletePost } from '../actions';
+import {
+  fetchPosts,
+  fetchComments,
+  votePost,
+  VOTE,
+  deletePost
+} from '../actions';
 import SortCommentsOptions from './sortComments';
 import Comment from './commentDetail';
 import Votes from './voteControl';
 
 class PostDetail extends Component {
   componentDidMount () {
-    const { fetchPosts, fetchComments, comments } = this.props;
+    const { fetchPosts, fetchComments, posts, comments } = this.props;
     const postID = this.getPostID();
-    const fetched = this.arePostsFetched();
 
-    if (!fetched) {
+    if (!posts || !posts.fetched) {
       fetchPosts();
     }
 
-    if (!comments.data[postID]) {
+    if (!comments || !comments.fetched) {
       fetchComments(postID);
     }
-  }
-
-  arePostsFetched () {
-    const { posts } = this.props;
-    return posts && posts.fetched;
   }
 
   getPostID () {
@@ -116,11 +116,10 @@ class PostDetail extends Component {
   }
 
   render () {
-    const { posts } = this.props;
-    const fetched = this.arePostsFetched();
+    const { posts, comments } = this.props;
     const postID = this.getPostID();
 
-    if (!fetched) {
+    if (!posts.fetched || !comments.fetched) {
       return (
         <div>Loading...</div>
       );
@@ -145,6 +144,9 @@ class PostDetail extends Component {
           </Link>
           <Link to={`/post/${postID}/edit`}>
             Edit
+          </Link>
+          <Link to={`/post/${postID}/comment/new`}>
+            New comment
           </Link>
           <button onClick={this.deletePostHandler}>
             Delete post

@@ -15,6 +15,8 @@ export const DOWN_VOTE_COMMENT = 'downVoteComment';
 export const DELETE_COMMENT = 'deleteComment';
 export const NEW_POST = 'newPost';
 export const UPDATE_POST = 'updatePost';
+export const NEW_COMMENT = 'newComment';
+export const UPDATE_COMMENT = 'updateComment';
 
 export const SORT_POSTS_BY = {
   VOTES: 'voteScore',
@@ -254,6 +256,54 @@ export function updatePost (postID, values, callback) {
 
   return {
     type: UPDATE_POST,
+    payload: data
+  }
+}
+
+export function saveComment (postID, values, callback) {
+  const url = `${URL}/comments`;
+  const config = {
+    headers: {'Authorization': APIKEY}
+  }
+  const metadata = {
+    id: uuidv4(),
+    timestamp: Date.now(),
+    parentId: postID
+  }
+
+  const data = {
+    ...values,
+    ...metadata
+  }
+
+  axios.post(url, data, config)
+    .then(() => callback());
+
+  return {
+    type: NEW_COMMENT,
+    payload: data
+  }
+}
+
+export function updateComment (commentID, values, callback) {
+  const url = `${URL}/comments/${commentID}`;
+  const config = {
+    headers: {'Authorization': APIKEY}
+  }
+  const metadata = {
+    timestamp: Date.now()
+  }
+
+  const data = {
+    ...values,
+    ...metadata
+  }
+
+  axios.put(url, data, config)
+    .then(() => callback());
+
+  return {
+    type: UPDATE_COMMENT,
     payload: data
   }
 }

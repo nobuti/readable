@@ -7,8 +7,8 @@ import { voteComment, deleteComment, VOTE } from '../actions';
 import Votes from './voteControl';
 
 class Comment extends Component {
-  deleteComment = () => {
-    const { id, post } = this.props;
+  delete = () => {
+    const { id, post, deleteComment } = this.props;
     deleteComment(post, id)
   }
 
@@ -26,7 +26,7 @@ class Comment extends Component {
   }
 
   render () {
-    const { id, author, title, body, timestamp, voteScore } = this.props;
+    const { id, author, title, body, timestamp, voteScore, post } = this.props;
 
     return (
       <li>
@@ -34,11 +34,11 @@ class Comment extends Component {
         <p>{body}</p>
         <small>Submitted by {author}, {format(timestamp, 'D MMM YYYY, HH:ss')}</small>
 
-        <button onClick={this.deleteComment}>
+        <button onClick={this.delete}>
           Delete
         </button>
 
-        <Link to={`/comments/${id}/edit`}>
+        <Link to={`/post/${post}/comment/${id}/edit`}>
           Edit
         </Link>
 

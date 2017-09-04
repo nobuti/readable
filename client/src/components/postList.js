@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Logo from './logo';
-import Categories from './categories';
 import SortPostOptions from './sortPosts';
 import PostListItem from './postListItem';
 
@@ -52,8 +50,6 @@ class PostList extends Component {
   }
 
   render () {
-    // To pass route props to the children
-    const props = this.props;
     const { posts, match } = this.props;
 
     if (!posts.fetched) {
@@ -64,8 +60,6 @@ class PostList extends Component {
 
     return (
       <div>
-        <Logo />
-        <Categories {...props} />
         <SortPostOptions />
         <Link to='/post/new'>
           Submit

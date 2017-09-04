@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import './logo.css';
+
 const Logo = () => {
   return (
-    <Link to='/'>Readable</Link>
+    <h1 className='Logo'>
+      <Link to='/'>Readable</Link>
+    </h1>
   );
 }
 

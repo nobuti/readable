@@ -1,5 +1,65 @@
-body {
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html,
+body,
+p,
+ul,
+li,
+fieldset,
+legend,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+ul {
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+body {
+  background-color: #FAFAFA;
+  font-family: 'Lato', sans-serif;
+}
+
+.Left {
+  width: 25%;
+}
+
+.Main {
+  width: 50%;
 }

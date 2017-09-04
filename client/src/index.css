@@ -8,6 +8,11 @@ html {
 }
 
 html,
+body {
+  height: 100%;
+}
+
+html,
 body,
 p,
 ul,
@@ -46,6 +51,10 @@ textarea {
   margin: 0;
 }
 
+button:focus {
+  outline:0;
+}
+
 img {
   height: auto;
   max-width: 100%;
@@ -54,6 +63,23 @@ img {
 body {
   background-color: #FAFAFA;
   font-family: 'Lato', sans-serif;
+  display: flex;
+}
+
+.Root,
+.Container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+
+.Content {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  padding: 4rem;
+  position: relative;
 }
 
 .Left {

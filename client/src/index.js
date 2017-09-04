@@ -20,10 +20,10 @@ const createStoreWithMiddlewares = applyMiddleware(promise)(createStore);
 ReactDOM.render(
   <Provider store={createStoreWithMiddlewares(reducers)}>
     <Router>
-      <div>
+      <div className="Container">
         <Header />
 
-        <Switch>
+        <Switch className="Content">
           <Route path='/' exact component={PostList} />
           <Route path='/category/:category' component={PostList} />
           <Route path='/post/:post/comment/:comment/edit' component={CommentEdition} />

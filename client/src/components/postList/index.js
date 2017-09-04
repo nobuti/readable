@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import SortPostOptions from './sortPosts';
+import { SortPosts } from '../sort';
 import PostListItem from './postListItem';
+import Loading from '../loading';
 
-import { fetchPosts } from '../actions';
+import { fetchPosts } from '../../actions';
 
 class PostList extends Component {
   componentDidMount () {
@@ -54,22 +55,24 @@ class PostList extends Component {
 
     if (!posts.fetched) {
       return (
-        <div>Loading...</div>
+        <Loading />
       );
     }
 
     return (
-      <div>
-        <SortPostOptions />
-        <Link to='/post/new'>
-          Submit
-        </Link>
+      <div className='Content'>
+        <div className='Main'>
+          <SortPosts />
+          <Link to='/post/new'>
+            Submit
+          </Link>
 
-        <ul>
-          { this.renderPosts() }
-        </ul>
+          <ul>
+            { this.renderPosts() }
+          </ul>
 
-        <div>Filtered by {match.params.category || 'all'} and sorted by {posts.sort}</div>
+          <div>Filtered by {match.params.category || 'all'} and sorted by {posts.sort}</div>
+        </div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { votePost, VOTE } from '../actions';
+import { votePost, VOTE } from '../../actions';
 import format from 'date-fns/format';
 
 const PostListItem = (props) => {

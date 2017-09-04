@@ -11,7 +11,7 @@ import {
   VOTE,
   deletePost
 } from '../actions';
-import SortCommentsOptions from './sortComments';
+import { SortComments } from './sort';
 import Comment from './commentDetail';
 import Votes from './voteControl';
 
@@ -95,7 +95,7 @@ class PostDetail extends Component {
     if (postComments.length > 0) {
       return (
         <div>
-          <SortCommentsOptions />
+          <SortComments />
           <ul>
           {
             postComments.map((comment) => {

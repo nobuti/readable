@@ -51,7 +51,7 @@ class PostList extends Component {
   }
 
   render () {
-    const { posts, match } = this.props;
+    const { posts } = this.props;
 
     if (!posts.fetched) {
       return (
@@ -63,15 +63,17 @@ class PostList extends Component {
       <div className='Content'>
         <div className='Main'>
           <SortPosts />
-          <Link to='/post/new'>
-            Submit
+
+          <Link className='Rounded Add-post' to='/post/new'>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M256 0c-11.422 0-20.682 9.26-20.682 20.682v470.636c0 11.423 9.26 20.682 20.682 20.682 11.423 0 20.682-9.26 20.682-20.682V20.682C276.682 9.26 267.422 0 256 0z"/>
+              <path d="M491.318 235.318H20.682C9.26 235.318 0 244.578 0 256c0 11.423 9.26 20.682 20.682 20.682h470.636c11.423 0 20.682-9.26 20.682-20.682 0-11.422-9.26-20.682-20.682-20.682z"/>
+            </svg>
           </Link>
 
           <ul>
             { this.renderPosts() }
           </ul>
-
-          <div>Filtered by {match.params.category || 'all'} and sorted by {posts.sort}</div>
         </div>
       </div>
     );

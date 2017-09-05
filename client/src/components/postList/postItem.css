@@ -1,0 +1,36 @@
+.PostItem {
+  background-color: #fff;
+  box-shadow: 0 2px 2px #ddd;
+  padding: 2rem;
+  position: relative;
+}
+
+.PostItem + .PostItem {
+  margin-top: 2rem;
+}
+
+.PostItem-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+}
+
+.PostItem-title a {
+  color: #444;
+  text-decoration: none;
+}
+
+.PostItem-title a:hover {
+  color: #FC6620;
+}
+
+.PostItem-meta {
+  color: #ccc;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.PostItem-author {
+  color: #FC6620;
+}

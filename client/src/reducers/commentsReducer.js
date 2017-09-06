@@ -22,7 +22,7 @@ export default function (state = initialState, action) {
     return {
       ...state,
       fetched: true,
-      data: action.payload
+      data: {...state.data, ...action.payload}
     }
 
   case SORT_COMMENTS:

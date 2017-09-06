@@ -25,7 +25,7 @@ class PostDetail extends Component {
       fetchPosts();
     }
 
-    if (!comments || !comments.fetched) {
+    if (!comments || !comments.fetched || !comments.data[postID]) {
       fetchComments(postID);
     }
   }

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
 
-import { voteComment, deleteComment, VOTE } from '../actions';
-import Votes from './voteControl';
+import { voteComment, deleteComment, VOTE } from '../../actions';
+import Score from '../score';
 
 class Comment extends Component {
   delete = () => {
@@ -42,7 +42,7 @@ class Comment extends Component {
           Edit
         </Link>
 
-        <Votes score={voteScore} voteUp={this.voteUp} voteDown={this.voteDown} />
+        <Score score={voteScore} voteUp={this.voteUp} voteDown={this.voteDown} />
       </li>
     );
   }

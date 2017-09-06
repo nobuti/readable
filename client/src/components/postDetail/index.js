@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
+import './post.css';
 
-import Logo from './logo';
 import {
   fetchPosts,
   fetchComments,
   votePost,
   VOTE,
   deletePost
-} from '../actions';
-import { SortComments } from './sort';
-import Comment from './commentDetail';
-import Votes from './voteControl';
+} from '../../actions';
+import { SortComments } from '../sort';
+import Comment from '../commentDetail';
+import Score from '../score';
+import Loading from '../loading';
 
 class PostDetail extends Component {
   componentDidMount () {
@@ -64,11 +65,11 @@ class PostDetail extends Component {
 
     return (
       <div>
-        <h2>{ title }</h2>
-        <h6>Submitted by {author}, {format(timestamp, 'D MMM YYYY')}</h6>
-        <p>{ body }</p>
+        <h1 className='Post-title'>{ title }</h1>
+        <h6 className='Post-meta'>Submitted by <span>{author}</span>, {format(timestamp, 'D MMM YYYY')}</h6>
+        <p className='Post-body'>{ body }</p>
 
-        <Votes score={voteScore} voteUp={this.voteUp} voteDown={this.voteDown} />
+        <Score score={voteScore} voteUp={this.voteUp} voteDown={this.voteDown} />
       </div>
     );
   }
@@ -121,7 +122,7 @@ class PostDetail extends Component {
 
     if (!posts.fetched || !comments.fetched) {
       return (
-        <div>Loading...</div>
+        <Loading />
       );
     } else {
 
@@ -134,25 +135,20 @@ class PostDetail extends Component {
       }
 
       return (
-        <div>
-          <Logo />
-          <Link to='/'>
-            Back
-          </Link>
-          <Link to='/post/new'>
-            Submit
-          </Link>
-          <Link to={`/post/${postID}/edit`}>
-            Edit
-          </Link>
-          <Link to={`/post/${postID}/comment/new`}>
-            New comment
-          </Link>
-          <button onClick={this.deletePostHandler}>
-            Delete post
-          </button>
-          { this.renderPost() }
-          { this.renderComments() }
+        <div className='Content'>
+          <div className='Main'>
+            <Link to={`/post/${postID}/edit`}>
+              Edit
+            </Link>
+            <Link to={`/post/${postID}/comment/new`}>
+              New comment
+            </Link>
+            <button onClick={this.deletePostHandler}>
+              Delete post
+            </button>
+            { this.renderPost() }
+            { this.renderComments() }
+          </div>
         </div>
       );
     }

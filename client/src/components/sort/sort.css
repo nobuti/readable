@@ -33,3 +33,14 @@
   background-color: #ECECEC;
   box-shadow: none;
 }
+
+.Button--small {
+  font-size: 1.2rem;
+  padding: 0.5rem 1.5rem;
+}
+
+.Sort-comments {
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0.5rem 0;
+}

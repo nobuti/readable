@@ -12,7 +12,7 @@ const SortCommentsOptions = ({ activeSort, sortComments }) => {
     return (
       <li key={sortKey}>
         <button
-          className={activeSort === sortKey ? 'active' : ''}
+          className={activeSort === sortKey ? 'Button Button--small is-active' : 'Button  Button--small'}
           onClick={(e) => {
               sortComments(sortKey)
             }
@@ -23,7 +23,11 @@ const SortCommentsOptions = ({ activeSort, sortComments }) => {
   })
 
   return (
-    <ul>
+    <ul className='Sort'>
+      <li key='plain' className='Sort-comments'>
+        Sort comments
+      </li>
+
       {buttons}
     </ul>
   );

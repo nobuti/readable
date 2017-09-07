@@ -67,6 +67,16 @@ class PostDetail extends Component {
       <div>
         <h1 className='Post-title'>{ title }</h1>
         <h6 className='Post-meta'>Submitted by <span>{author}</span>, {format(timestamp, 'D MMM YYYY')}</h6>
+
+        <div className='Post-links'>
+          <Link className='Link' to={`/post/${postID}/edit`}>
+            Edit post
+          </Link>
+          <button className='Link' onClick={this.deletePostHandler}>
+            Delete post
+          </button>
+        </div>
+
         <p className='Post-body'>{ body }</p>
 
         <Score score={voteScore} voteUp={this.voteUp} voteDown={this.voteDown} />
@@ -137,17 +147,14 @@ class PostDetail extends Component {
       return (
         <div className='Content'>
           <div className='Main'>
-            <Link to={`/post/${postID}/edit`}>
-              Edit
-            </Link>
-            <Link to={`/post/${postID}/comment/new`}>
-              New comment
-            </Link>
-            <button onClick={this.deletePostHandler}>
-              Delete post
-            </button>
             { this.renderPost() }
             { this.renderComments() }
+
+            <Link title='Add new comment' className='Rounded Add-comment' to={`/post/${postID}/comment/new`}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path d="M439.025 0H72.975C32.737 0 0 32.737 0 72.975v418.342c0 8.366 5.04 15.907 12.77 19.108 2.557 1.06 5.245 1.576 7.91 1.576 5.38 0 10.67-2.1 14.627-6.057l98.528-98.527h305.19c40.238 0 72.974-32.738 72.974-72.976V72.975C512 32.737 479.263 0 439.024 0zm31.61 334.438c0 17.43-14.18 31.612-31.61 31.612H125.267c-5.486 0-10.746 2.18-14.625 6.058l-69.28 69.28V72.974c0-17.43 14.182-31.61 31.612-31.61h366.05c17.43 0 31.61 14.18 31.61 31.61v261.463z"/>
+              </svg>
+            </Link>
           </div>
         </div>
       );

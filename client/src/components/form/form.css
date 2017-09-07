@@ -1,0 +1,64 @@
+.Form {
+  margin-bottom: 4rem;
+}
+
+.Form-back {
+  position: absolute;
+  right: 3rem;
+  top: 3rem;
+}
+
+.Form-back svg {
+  fill: #444;
+  width: 2rem;
+  transform: rotate(0deg);
+  transition: transform 0.25s;
+}
+
+.Form-back:hover svg {
+  transform: rotate(360deg);
+}
+
+.Form-group {
+  margin-bottom: 3rem;
+}
+
+.Form-group:last-child {
+  margin-bottom: 0;
+}
+
+.Form-label {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.Form textarea,
+.Form input[type="text"],
+.Form select {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  outline: none;
+  width: 100%;
+}
+
+.Form textarea:focus,
+.Form input[type="text"]:focus,
+.Form select:focus {
+  border: 1px solid #999;
+}
+
+.Form textarea {
+  height: 10rem;
+  font-size: 1.6rem;
+  padding: 1rem;
+}
+
+.Form input[type="text"] {
+  font-size: 1.6rem;
+  padding: 1rem;
+}
+
+.Form select {
+
+}

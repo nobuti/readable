@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
 
+import './comment.css';
+
 import { voteComment, deleteComment, VOTE } from '../../actions';
 import Score from '../score';
 
@@ -26,21 +28,22 @@ class Comment extends Component {
   }
 
   render () {
-    const { id, author, title, body, timestamp, voteScore, post } = this.props;
+    const { id, author, body, timestamp, voteScore, post } = this.props;
 
     return (
-      <li>
-        <h2>{title}</h2>
-        <p>{body}</p>
-        <small>Submitted by {author}, {format(timestamp, 'D MMM YYYY, HH:ss')}</small>
+      <li className='Comment'>
+        <p className='Comment-body'>{body}</p>
+        <h6 className='Comment-meta'>Submitted by {author}, {format(timestamp, 'D MMM YYYY, HH:ss')}</h6>
 
-        <button onClick={this.delete}>
-          Delete
-        </button>
+        <div className='Comment-links'>
+          <Link className='Link' to={`/post/${post}/comment/${id}/edit`}>
+            Edit comment
+          </Link>
 
-        <Link to={`/post/${post}/comment/${id}/edit`}>
-          Edit
-        </Link>
+          <button className='Link' onClick={this.delete}>
+            Delete comment
+          </button>
+        </div>
 
         <Score score={voteScore} voteUp={this.voteUp} voteDown={this.voteDown} />
       </li>

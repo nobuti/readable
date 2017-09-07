@@ -3,30 +3,40 @@ import { Field, reduxForm } from 'redux-form'
 
 let PostForm = props => {
   const { handleSubmit, categories, pristine, reset, submitting } = props;
+  const required = value => (value ? undefined : 'Required');
 
   return (
-    <form onSubmit={ handleSubmit }>
-      <div>
-        <label>Title</label>
+    <form className='Form' onSubmit={ handleSubmit }>
+      <div className='Form-group'>
+        <label className='Form-label'>Title</label>
         <div>
           <Field
             name="title"
             component="input"
             type="text"
             placeholder="Title"
+            validate={[required]}
           />
         </div>
       </div>
-      <div>
-        <label>Body</label>
+
+      <div className='Form-group'>
+        <label className='Form-label'>Body</label>
         <div>
-          <Field name="body" component="textarea" />
+          <Field
+            name="body"
+            component="textarea"
+            validate={[required]} />
         </div>
       </div>
-      <div>
-        <label>Category</label>
+
+      <div className='Form-group'>
+        <label className='Form-label'>Category</label>
         <div>
-          <Field name="category" component="select">
+          <Field
+            name="category"
+            component="select"
+            validate={[required]}>
             {
               categories.map((category, index) => {
                 const {name} = category;
@@ -38,22 +48,25 @@ let PostForm = props => {
           </Field>
         </div>
       </div>
-      <div>
-        <label>Author</label>
+
+      <div className='Form-group'>
+        <label className='Form-label'>Author</label>
         <div>
           <Field
             name="author"
             component="input"
             type="text"
             placeholder="Author"
+            validate={[required]}
           />
         </div>
       </div>
-      <div>
-        <button type="submit" disabled={pristine || submitting}>
+
+      <div className='Form-group'>
+        <button  className='Button' type="submit" disabled={pristine || submitting}>
           Submit
         </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
+        <button className='Button' type="button" disabled={pristine || submitting} onClick={reset}>
           Clear Values
         </button>
       </div>

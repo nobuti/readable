@@ -1,7 +1,6 @@
 .Post-title {
   font-size: 3.2rem;
   font-weight: 900;
-  margin-bottom: 1rem;
 }
 
 .Post-body {
@@ -12,9 +11,13 @@
 .Post-meta {
   color: #ccc;
   font-size: 1.8rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .Post-meta span {
   color: #FC6620;
+}
+
+.Post-links {
+  margin-bottom: 3rem;
 }

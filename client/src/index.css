@@ -112,16 +112,38 @@ body {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 70%;
+  width: 50%;
   transition: width 0.25s;
 }
 
 .Rounded:hover svg {
-  width: 80%;
+  width: 60%;
 }
 
-.Add-post {
+.Add-post,
+.Add-comment {
   position: absolute;
   bottom: 2rem;
   right: 2rem;
+}
+
+.Link {
+  background-color: transparent;
+  border: 0;
+  color: #ff6600;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+.Link:hover {
+  text-decoration: underline;
+}
+
+.Link + .Link {
+  margin-left: 1rem;
 }

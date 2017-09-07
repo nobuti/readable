@@ -9,8 +9,7 @@ import promise from "redux-promise";
 
 import reducers from "./reducers";
 import PostList from './components/postList';
-import PostEdition from './components/postEdition';
-import CommentEdition from './components/commentEdition';
+import { PostEdition, CommentEdition } from './components/form';
 import PostDetail from './components/postDetail';
 import NotFound from './components/notFound';
 import Header from './components/header';

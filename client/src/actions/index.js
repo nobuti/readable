@@ -266,7 +266,7 @@ export function saveComment (postID, values, callback) {
     id: uuidv4(),
     timestamp: Date.now(),
     parentId: postID,
-    voteScore: 0
+    voteScore: 1
   }
   const data = {
     ...values,

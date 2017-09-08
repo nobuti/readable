@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Link, Redirect} from 'react-router-dom';
 
 import './categories.css';
 
-import { fetchCategories } from '../../actions';
+import {fetchCategories} from '../../actions';
 
 class Categories extends Component {
   componentDidMount () {
-    const { categories, fetchCategories } = this.props;
+    const {categories, fetchCategories} = this.props;
     const fetched = categories && categories.fetched;
     !fetched && fetchCategories();
   }
@@ -28,24 +28,37 @@ class Categories extends Component {
   renderCategories (categories) {
     return categories.map((category) => {
       const path = `/category/${category.path}`;
-      const { name } = category;
+      const {name} = category;
       return this.renderCategory(name, path);
     });
   }
 
-  render () {
-    const { categories } = this.props;
+  isCategoryAllowed () {
+    const {categories, category} = this.props;
+    const all =['all',...categories.data.map(category => category.name)]
+    return all.indexOf(category) >= 0;
+  }
 
-    if (categories.fetched) {
+  render () {
+    const {categories} = this.props;
+    const {fetched} = categories;
+
+    if (!fetched) {
+      return null;
+    }
+
+    if (fetched && !this.isCategoryAllowed()) {
+      return (
+        <Redirect to='/404'/>
+      );
+    } else {
       return (
         <ul className='Categories'>
-          { this.renderCategory('all', '') }
-          { this.renderCategories(categories.data) }
+          {this.renderCategory('all', '')}
+          {this.renderCategories(categories.data)}
         </ul>
       );
     }
-
-    return null;
   }
 }
 
@@ -55,4 +68,4 @@ const mapStateToPros = (state) => {
   }
 }
 
-export default connect(mapStateToPros, { fetchCategories })(Categories);
+export default connect(mapStateToPros, {fetchCategories})(Categories);

@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form'
+import {combineReducers} from 'redux';
+import {reducer as formReducer} from 'redux-form'
 import PostsReducer from './postsReducer';
 import CommentsReducer from './commentsReducer';
 import CategoriesReducer from './categoriesReducer';

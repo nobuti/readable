@@ -1,6 +1,6 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { renderText, renderTextarea, renderSelect } from './util';
+import {Field, reduxForm} from 'redux-form'
+import {renderText, renderTextarea, renderSelect} from './util';
 
 const validate = values => {
   const errors = {}
@@ -30,14 +30,14 @@ const validate = values => {
 }
 
 const PostForm = props => {
-  const { handleSubmit, categories, pristine, reset, submitting } = props;
+  const {handleSubmit, categories, pristine, reset, submitting} = props;
 
   const options = categories.map((category) => {
     return category.name;
   })
 
   return (
-    <form className='Form' onSubmit={ handleSubmit }>
+    <form className='Form' onSubmit={handleSubmit}>
       <div className='Form-group'>
         <label className='Form-label'>Title</label>
         <div>

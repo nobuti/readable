@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import format from 'date-fns/format';
 
 import './comment.css';
 
-import { voteComment, deleteComment, VOTE } from '../../actions';
+import {voteComment, deleteComment, VOTE} from '../../actions';
 import Score from '../score';
 
 class Comment extends Component {
   delete = () => {
-    const { id, post, deleteComment } = this.props;
+    const {id, post, deleteComment} = this.props;
     deleteComment(post, id)
   }
 
   vote = (option) => {
-    const { id, post, voteComment } = this.props;
+    const {id, post, voteComment} = this.props;
     voteComment(post, id, option);
   }
 
@@ -28,7 +28,7 @@ class Comment extends Component {
   }
 
   render () {
-    const { id, author, body, timestamp, voteScore, post } = this.props;
+    const {id, author, body, timestamp, voteScore, post} = this.props;
 
     return (
       <li className='Comment'>
@@ -51,4 +51,4 @@ class Comment extends Component {
   }
 }
 
-export default connect(null, { voteComment, deleteComment })(Comment);
+export default connect(null, {voteComment, deleteComment})(Comment);

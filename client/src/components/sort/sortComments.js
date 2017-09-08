@@ -1,13 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { SORT_COMMENTS_BY, sortComments } from '../../actions';
+import {connect} from 'react-redux';
+import {SORT_COMMENTS_BY, sortComments} from '../../actions';
 
 export const LABEL = {
   voteScore: 'Top',
   timestamp: 'New'
 }
 
-const SortCommentsOptions = ({ activeSort, sortComments }) => {
+const SortCommentsOptions = ({activeSort, sortComments}) => {
   const buttons = Object.values(SORT_COMMENTS_BY).map((sortKey) => {
     return (
       <li key={sortKey}>
@@ -39,4 +39,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { sortComments })(SortCommentsOptions);
+export default connect(mapStateToProps, {sortComments})(SortCommentsOptions);

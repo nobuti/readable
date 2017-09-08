@@ -4,12 +4,12 @@ const renderText = ({
     input,
     placeholder,
     type,
-    meta: { touched, error }
+    meta: {touched, error}
   }) => {
   return (
     <div>
       <input {...input} placeholder={placeholder} type={type} />
-      { touched && error && <div className='Form-error'>{error}</div> }
+      { touched && error && <div className='Form-error'>{error}</div>}
     </div>
   );
 }
@@ -17,12 +17,12 @@ const renderText = ({
 const renderTextarea = ({
     input,
     placeholder,
-    meta: { touched, error }
+    meta: {touched, error}
   }) => {
   return (
     <div>
       <textarea {...input} placeholder={placeholder}  />
-      { touched && error && <div className='Form-error'>{error}</div> }
+      { touched && error && <div className='Form-error'>{error}</div>}
     </div>
   );
 }
@@ -30,9 +30,8 @@ const renderTextarea = ({
 const renderSelect = ({
     input,
     options,
-    meta: { touched, error }
+    meta: {touched, error}
   }) => {
-
   const renderOptions = (options) => options.map((option) => {
     return (
       <option key={option} value={option}>{option}</option>
@@ -42,11 +41,11 @@ const renderSelect = ({
   return (
     <div className='Form-select'>
       <select {...input}>
-      { renderOptions(options) }
+      { renderOptions(options)}
       </select>
-      { touched && error && <div className='Form-error'>{error}</div> }
+      { touched && error && <div className='Form-error'>{error}</div>}
     </div>
   );
 }
 
-export { renderText, renderTextarea, renderSelect };
+export {renderText, renderTextarea, renderSelect};

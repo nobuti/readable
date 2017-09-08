@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component} from 'react';
+import {connect} from 'react-redux';
 import format from 'date-fns/format';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './post.css';
 
 import {
@@ -11,14 +11,14 @@ import {
   VOTE,
   deletePost
 } from '../../actions';
-import { SortComments } from '../sort';
+import {SortComments} from '../sort';
 import Comment from '../commentDetail';
 import Score from '../score';
 import Loading from '../loading';
 
 class PostDetail extends Component {
   componentDidMount () {
-    const { fetchPosts, fetchComments, posts, comments } = this.props;
+    const {fetchPosts, fetchComments, posts, comments} = this.props;
     const postID = this.getPostID();
 
     if (!posts || !posts.fetched) {
@@ -31,13 +31,13 @@ class PostDetail extends Component {
   }
 
   getPostID () {
-    const { match } = this.props;
+    const {match} = this.props;
     return match.params.post;
   }
 
   deletePost = () => {
     const postID = this.getPostID();
-    const { deletePost, history } = this.props;
+    const { deletePost, history} = this.props;
     deletePost(postID, () => {
       history.push("/");
     })
@@ -45,7 +45,7 @@ class PostDetail extends Component {
 
   vote = (option) => {
     const post = this.getPostID();
-    const { votePost } = this.props;
+    const {votePost} = this.props;
     votePost(post, option);
   }
 
@@ -58,14 +58,14 @@ class PostDetail extends Component {
   }
 
   renderPost () {
-    const { posts } = this.props;
+    const {posts} = this.props;
     const postID = this.getPostID();
     const post = posts.data[postID];
-    const { author, title, body, timestamp, voteScore } = post;
+    const {author, title, body, timestamp, voteScore} = post;
 
     return (
       <div>
-        <h1 className='Post-title'>{ title }</h1>
+        <h1 className='Post-title'>{title}</h1>
         <h6 className='Post-meta'>Submitted by <span>{author}</span>, {format(timestamp, 'D MMM YYYY')}</h6>
 
         <div className='Post-links'>
@@ -77,7 +77,7 @@ class PostDetail extends Component {
           </button>
         </div>
 
-        <p className='Post-body'>{ body }</p>
+        <p className='Post-body'>{body}</p>
 
         <Score score={voteScore} voteUp={this.voteUp} voteDown={this.voteDown} />
       </div>
@@ -85,7 +85,7 @@ class PostDetail extends Component {
   }
 
   sortComments () {
-    const { comments } = this.props;
+    const {comments} = this.props;
     const sortKey = comments.sort;
     const postID = this.getPostID();
     const postComments = comments.data[postID];
@@ -110,7 +110,7 @@ class PostDetail extends Component {
           <ul>
           {
             postComments.map((comment) => {
-              const { id } = comment;
+              const {id} = comment;
               return (
                 <Comment key={id} post={postID} {...comment} />
               );
@@ -121,13 +121,13 @@ class PostDetail extends Component {
       );
     } else {
       return (
-        <div>No comments yet. Be the first!</div>
+        <div className='Post-comments'>No comments yet. Be the first!</div>
       );
     }
   }
 
   render () {
-    const { posts, comments } = this.props;
+    const {posts, comments} = this.props;
     const postID = this.getPostID();
 
     if (!posts.fetched || !comments.fetched) {
@@ -147,8 +147,8 @@ class PostDetail extends Component {
       return (
         <div className='Content'>
           <div className='Main'>
-            { this.renderPost() }
-            { this.renderComments() }
+            {this.renderPost()}
+            {this.renderComments()}
 
             <Link title='Add new comment' className='Rounded Add-comment' to={`/post/${postID}/comment/new`}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -169,4 +169,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchComments, fetchPosts, votePost, deletePost })(PostDetail);
+export default connect(mapStateToProps, {fetchComments, fetchPosts, votePost, deletePost})(PostDetail);

@@ -1,23 +1,25 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-import { SortPosts } from '../sort';
+import {SortPosts} from '../sort';
 import PostListItem from './postListItem';
 import Loading from '../loading';
 
-import { fetchPosts } from '../../actions';
+import {fetchPosts} from '../../actions';
+
+import './postList.css';
 
 class PostList extends Component {
   componentDidMount () {
-    const { posts, fetchPosts } = this.props;
+    const {posts, fetchPosts} = this.props;
     const fetched = posts && posts.fetched;
 
     !fetched && fetchPosts();
   }
 
   filterAndSort () {
-    const { posts, match } = this.props;
+    const {posts, match} = this.props;
     const category = match.params.category || 'all';
     const sortKey = posts.sort;
 
@@ -35,23 +37,28 @@ class PostList extends Component {
   }
 
   renderPosts () {
+    const {match} = this.props;
     const posts = this.filterAndSort();
+    const category = match.params.category || 'all';
 
     if (posts.length === 0) {
       return (
-        <div>There is no post.</div>
+        <div className='No-posts'>There is no post yet in <span>{category}</span> category.</div>
       );
     }
 
-    return posts.map(post => {
-      return (
-        <PostListItem key={post.id} {...post} />
-      );
-    });
+    return (
+      <div>
+        <SortPosts />
+        {
+          posts.map(post => <PostListItem key={post.id} {...post} />)
+        }
+      </div>
+    );
   }
 
   render () {
-    const { posts } = this.props;
+    const {posts} = this.props;
 
     if (!posts.fetched) {
       return (
@@ -62,7 +69,6 @@ class PostList extends Component {
     return (
       <div className='Content'>
         <div className='Main'>
-          <SortPosts />
 
           <Link title='Add new post' className='Rounded Add-post' to='/post/new'>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -72,7 +78,7 @@ class PostList extends Component {
           </Link>
 
           <ul>
-            { this.renderPosts() }
+            {this.renderPosts()}
           </ul>
         </div>
       </div>
@@ -86,4 +92,4 @@ const mapStateToPros = (state) => {
   }
 }
 
-export default connect(mapStateToPros, { fetchPosts })(PostList);
+export default connect(mapStateToPros, {fetchPosts})(PostList);

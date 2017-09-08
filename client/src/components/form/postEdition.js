@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import PostForm from './postForm';
 import {
@@ -9,10 +9,11 @@ import {
   savePost,
   updatePost
 } from '../../actions';
+import Loading from '../loading';
 
 class PostEdition extends Component {
   componentDidMount () {
-    const { categories, posts, fetchCategories, fetchPosts } = this.props;
+    const {categories, posts, fetchCategories, fetchPosts} = this.props;
     const fetchedCategories = categories && categories.fetched;
     const fetchedPosts = posts && posts.fetched;
     !fetchedCategories && fetchCategories();
@@ -21,11 +22,11 @@ class PostEdition extends Component {
 
   submit = (values) => {
     const post = this.getPostID();
-    const { savePost, updatePost, history } = this.props;
+    const {savePost, updatePost, history} = this.props;
     if (post) {
       updatePost(post, values, () => {
         history.push(`/post/${post}`);
-      });
+     });
     } else {
       savePost(values, () => {
         history.push('/');
@@ -34,12 +35,12 @@ class PostEdition extends Component {
   }
 
   getPostID () {
-    const { match: { params: { post } = {} } } = this.props;
+    const { match: { params: {post} = {}}} = this.props;
     return post;
   }
 
   getInitialValues () {
-    const { posts } = this.props;
+    const {posts} = this.props;
     const post = this.getPostID();
     if (post) {
       return posts.data[post];
@@ -49,7 +50,7 @@ class PostEdition extends Component {
   }
 
   render () {
-    const { categories, posts } = this.props;
+    const { categories, posts} = this.props;
     const fetchedCategories = categories && categories.fetched;
     const fetchedPosts = posts && posts.fetched;
     const fetched = fetchedCategories && fetchedPosts;
@@ -57,7 +58,7 @@ class PostEdition extends Component {
 
     if (!fetched) {
       return (
-        <div>Loading categories...</div>
+        <Loading />
       );
     }
 
@@ -70,7 +71,7 @@ class PostEdition extends Component {
               <path d="M505.942 476.694L35.306 6.06C27.23-2.02 14.134-2.02 6.058 6.06c-8.077 8.075-8.077 21.17 0 29.247l470.636 470.636c4.038 4.04 9.332 6.058 14.625 6.058 5.292 0 10.586-2.018 14.623-6.056 8.075-8.078 8.075-21.173 0-29.25z"/>
             </svg>
           </Link>
-          <PostForm initialValues={ this.getInitialValues() } categories={categories.data} onSubmit={this.submit} />
+          <PostForm initialValues={ this.getInitialValues()} categories={categories.data} onSubmit={this.submit} />
         </div>
       </div>
     )
@@ -90,4 +91,4 @@ export default connect(mapStateToProps,
     fetchPosts,
     savePost,
     updatePost
-  })(PostEdition);
+ })(PostEdition);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
 import './header.css';
 
@@ -16,8 +16,8 @@ const Header = () => {
       {
         ['/', '/category/:category'].map((path) => {
           return (
-            <Route exact key={ path } path={ path } render={({ match }) => (
-              <Categories category={ match.params.category || 'all' }/>
+            <Route exact key={ path} path={ path} render={({match}) => (
+              <Categories category={match.params.category || 'all'}/>
             )}/>
           );
         })

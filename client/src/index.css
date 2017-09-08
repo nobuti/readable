@@ -132,6 +132,8 @@ body {
   border: 0;
   color: #ff6600;
   cursor: pointer;
+  display: inline-block;
+  font-family: 'Lato';
   font-size: 1.2rem;
   line-height: 1;
   margin: 0;

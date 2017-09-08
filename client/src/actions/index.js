@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { URL, APIKEY } from '../config';
+import {URL, APIKEY} from '../config';
 
 export const FETCH_CATEGORIES = 'fetchCategories';
 export const FETCH_POSTS = 'fetchPosts';
@@ -221,7 +221,6 @@ export function savePost (values, callback) {
     id: uuidv4(),
     timestamp: Date.now()
   }
-
   const data = {
     ...values,
     ...metadata
@@ -241,11 +240,9 @@ export function updatePost (postID, values, callback) {
   const config = {
     headers: {'Authorization': APIKEY}
   }
-
   const metadata = {
     id: postID
   }
-
   const data = {
     ...values,
     ...metadata
@@ -270,7 +267,6 @@ export function saveComment (postID, values, callback) {
     timestamp: Date.now(),
     parentId: postID
   }
-
   const data = {
     ...values,
     ...metadata
@@ -282,7 +278,7 @@ export function saveComment (postID, values, callback) {
   return {
     type: NEW_COMMENT,
     payload: data
-  }
+ }
 }
 
 export function updateComment (commentID, values, callback) {
@@ -293,7 +289,6 @@ export function updateComment (commentID, values, callback) {
   const metadata = {
     timestamp: Date.now()
   }
-
   const data = {
     ...values,
     ...metadata

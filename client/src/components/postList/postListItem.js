@@ -1,14 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { votePost, VOTE } from '../../actions';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {votePost, VOTE} from '../../actions';
 import format from 'date-fns/format';
 import Score from '../score';
 
 import './postItem.css';
 
 const PostListItem = (props) => {
-  const { id, author, title, timestamp, comments, voteScore, votePost } = props;
+  const {id, author, title, timestamp, comments, voteScore, votePost} = props;
 
   const voteUp = (e) => {
     votePost(id, VOTE.UP);
@@ -39,4 +39,4 @@ const PostListItem = (props) => {
   );
 }
 
-export default connect(null, { votePost })(PostListItem);
+export default connect(null, {votePost})(PostListItem);

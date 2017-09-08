@@ -35,9 +35,9 @@ class PostDetail extends Component {
     return match.params.post;
   }
 
-  deletePost = () => {
+  deletePostHandler = () => {
     const postID = this.getPostID();
-    const { deletePost, history} = this.props;
+    const {deletePost, history} = this.props;
     deletePost(postID, () => {
       history.push("/");
     })

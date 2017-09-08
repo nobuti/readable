@@ -7,7 +7,8 @@ import {
   DELETE_POST,
   DELETE_COMMENT,
   NEW_POST,
-  UPDATE_POST
+  UPDATE_POST,
+  NEW_COMMENT
 } from '../actions';
 
 const initialState = {
@@ -105,6 +106,18 @@ export default function (state = initialState, action) {
       ...state.data[action.payload.id],
       ...action.payload
     }
+
+    return {
+      ...state,
+      data
+    }
+
+  case NEW_COMMENT:
+    data = {
+      ...state.data
+    }
+
+    data[action.payload.parentId].comments += 1;
 
     return {
       ...state,

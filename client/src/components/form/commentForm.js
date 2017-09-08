@@ -1,20 +1,37 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import {Field, reduxForm} from 'redux-form'
+import {renderText, renderTextarea} from './util';
 
-let CommentForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props;
-  const required = value => (value ? undefined : 'Required');
+const validate = values => {
+  const errors = {}
+  if (!values.body) {
+    errors.body = 'Required'
+  } else if (values.body.length < 20) {
+    errors.body = "Don't be shy! White at least 20 characters.";
+  }
+
+  if (!values.author) {
+    errors.author = 'Required'
+  } else if (values.author.length < 2) {
+    errors.author = 'Must be at least 2 characters.'
+  }
+
+  return errors
+}
+
+const CommentForm = (props) => {
+  const {handleSubmit, pristine, reset, submitting} = props;
 
   return (
-    <form className='Form' onSubmit={ handleSubmit }>
+    <form className='Form' onSubmit={handleSubmit}>
       <div className='Form-group'>
         <label className='Form-label'>Body</label>
         <div>
           <Field
             name="body"
-            component="textarea"
+            component={renderTextarea}
             placeholder="Write your comment here"
-            validate={[required]} />
+          />
         </div>
       </div>
 
@@ -23,10 +40,9 @@ let CommentForm = props => {
         <div>
           <Field
             name="author"
-            component="input"
+            component={renderText}
             type="text"
             placeholder="Jane Doe"
-            validate={[required]}
           />
         </div>
       </div>
@@ -44,5 +60,6 @@ let CommentForm = props => {
 };
 
 export default reduxForm({
-  form: 'comment'
+  form: 'comment',
+  validate,
 })(CommentForm);

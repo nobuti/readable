@@ -1,9 +1,40 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { renderText, renderTextarea, renderSelect } from './util';
 
-let PostForm = props => {
+const validate = values => {
+  const errors = {}
+  if (!values.body) {
+    errors.body = 'Required';
+  } else if (values.body.length < 20) {
+    errors.body = "Don't be shy! White at least 20 characters.";
+  }
+
+  if (!values.author) {
+    errors.author = 'Required';
+  } else if (values.author.length < 2) {
+    errors.author = 'Must be at least 2 characters.';
+  }
+
+  if (!values.title) {
+    errors.title = 'Required';
+  } else if (values.title.length < 2) {
+    errors.title = 'Must be at least 2 characters.';
+  }
+
+  if (!values.category) {
+    errors.category = 'Required';
+  }
+
+  return errors
+}
+
+const PostForm = props => {
   const { handleSubmit, categories, pristine, reset, submitting } = props;
-  const required = value => (value ? undefined : 'Required');
+
+  const options = categories.map((category) => {
+    return category.name;
+  })
 
   return (
     <form className='Form' onSubmit={ handleSubmit }>
@@ -12,10 +43,9 @@ let PostForm = props => {
         <div>
           <Field
             name="title"
-            component="input"
+            component={renderText}
             type="text"
             placeholder="Title"
-            validate={[required]}
           />
         </div>
       </div>
@@ -25,8 +55,8 @@ let PostForm = props => {
         <div>
           <Field
             name="body"
-            component="textarea"
-            validate={[required]} />
+            component={renderTextarea}
+           />
         </div>
       </div>
 
@@ -35,17 +65,9 @@ let PostForm = props => {
         <div>
           <Field
             name="category"
-            component="select"
-            validate={[required]}>
-            {
-              categories.map((category, index) => {
-                const {name} = category;
-                return (
-                  <option key={name} value={name}>{name}</option>
-                );
-              })
-            }
-          </Field>
+            component={renderSelect}
+            options={options}
+          />
         </div>
       </div>
 
@@ -54,10 +76,9 @@ let PostForm = props => {
         <div>
           <Field
             name="author"
-            component="input"
+            component={renderText}
             type="text"
             placeholder="Author"
-            validate={[required]}
           />
         </div>
       </div>
@@ -75,5 +96,6 @@ let PostForm = props => {
 };
 
 export default reduxForm({
-  form: 'post'
+  form: 'post',
+  validate
 })(PostForm);

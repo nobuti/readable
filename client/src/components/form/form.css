@@ -34,18 +34,17 @@
 }
 
 .Form textarea,
-.Form input[type="text"],
-.Form select {
+.Form input[type="text"] {
   border: 1px solid #ddd;
   border-radius: 2px;
-  outline: none;
   width: 100%;
 }
 
 .Form textarea:focus,
 .Form input[type="text"]:focus,
 .Form select:focus {
-  border: 1px solid #999;
+  outline: none;
+  box-shadow: 0 0 2px #999;
 }
 
 .Form textarea {
@@ -60,5 +59,43 @@
 }
 
 .Form select {
+  font-size: 1.6rem;
+  appearance: none;
+  width: calc(100% + 3rem);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: transparent;
+  background-image: none;
+  padding: 1rem;
+}
 
+.Form-select {
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: #fff;
+  position: relative;
+}
+
+.Form-select::after {
+  border-style: solid;
+  content: '';
+  display: block;
+  height: 0;
+  right: 1.5rem;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 0;
+  border-color: #C4C4C4 transparent transparent transparent;
+  border-width: 8px 6px 0 6px;
+}
+
+.Form-error {
+  color: #CB1D33;
+  font-size: 1.2rem;
+  padding: 1rem;
 }

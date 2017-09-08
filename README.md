@@ -16,7 +16,7 @@ yarn (or npm install)
 Launch server the server in one tab:
 
 ```
-  node server
+  node server.js
 ```
 
 Then launch the client in another tab:

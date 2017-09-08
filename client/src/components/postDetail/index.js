@@ -35,6 +35,11 @@ class PostDetail extends Component {
     return match.params.post;
   }
 
+  getCategoryID () {
+    const {match} = this.props;
+    return match.params.category;
+  }
+
   deletePostHandler = () => {
     const postID = this.getPostID();
     const {deletePost, history} = this.props;
@@ -60,6 +65,7 @@ class PostDetail extends Component {
   renderPost () {
     const {posts} = this.props;
     const postID = this.getPostID();
+    const category = this.getCategoryID();
     const post = posts.data[postID];
     const {author, title, body, timestamp, voteScore} = post;
 
@@ -69,7 +75,7 @@ class PostDetail extends Component {
         <h6 className='Post-meta'>Submitted by <span>{author}</span>, {format(timestamp, 'D MMM YYYY')}</h6>
 
         <div className='Post-links'>
-          <Link className='Link' to={`/post/${postID}/edit`}>
+          <Link className='Link' to={`/${category}/${postID}/edit`}>
             Edit post
           </Link>
           <button className='Link' onClick={this.deletePostHandler}>
@@ -102,6 +108,7 @@ class PostDetail extends Component {
   renderComments () {
     const postComments = this.sortComments();
     const postID = this.getPostID();
+    const categoryID = this.getCategoryID();
 
     if (postComments.length > 0) {
       return (
@@ -112,7 +119,7 @@ class PostDetail extends Component {
             postComments.map((comment) => {
               const {id} = comment;
               return (
-                <Comment key={id} post={postID} {...comment} />
+                <Comment key={id} category={categoryID} post={postID} {...comment} />
               );
             })
           }
@@ -129,6 +136,7 @@ class PostDetail extends Component {
   render () {
     const {posts, comments} = this.props;
     const postID = this.getPostID();
+    const category = this.getCategoryID();
 
     if (!posts.fetched || !comments.fetched) {
       return (
@@ -150,7 +158,7 @@ class PostDetail extends Component {
             {this.renderPost()}
             {this.renderComments()}
 
-            <Link title='Add new comment' className='Rounded Add-comment' to={`/post/${postID}/comment/new`}>
+            <Link title='Add new comment' className='Rounded Add-comment' to={`/${category}/${postID}/comment/new`}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path d="M439.025 0H72.975C32.737 0 0 32.737 0 72.975v418.342c0 8.366 5.04 15.907 12.77 19.108 2.557 1.06 5.245 1.576 7.91 1.576 5.38 0 10.67-2.1 14.627-6.057l98.528-98.527h305.19c40.238 0 72.974-32.738 72.974-72.976V72.975C512 32.737 479.263 0 439.024 0zm31.61 334.438c0 17.43-14.18 31.612-31.61 31.612H125.267c-5.486 0-10.746 2.18-14.625 6.058l-69.28 69.28V72.974c0-17.43 14.182-31.61 31.612-31.61h366.05c17.43 0 31.61 14.18 31.61 31.61v261.463z"/>
               </svg>

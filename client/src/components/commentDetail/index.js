@@ -28,7 +28,7 @@ class Comment extends Component {
   }
 
   render () {
-    const {id, author, body, timestamp, voteScore, post} = this.props;
+    const {id, author, body, timestamp, voteScore, post, category} = this.props;
 
     return (
       <li className='Comment'>
@@ -36,7 +36,7 @@ class Comment extends Component {
         <h6 className='Comment-meta'>Submitted by {author}, {format(timestamp, 'D MMM YYYY, HH:ss')}</h6>
 
         <div className='Comment-links'>
-          <Link className='Link' to={`/post/${post}/comment/${id}/edit`}>
+          <Link className='Link' to={`/${category}/${post}/comment/${id}/edit`}>
             Edit comment
           </Link>
 

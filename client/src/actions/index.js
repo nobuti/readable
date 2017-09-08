@@ -195,23 +195,6 @@ export function deletePost (postID, callback) {
   }
 }
 
-export function deleteComment (postID, commentID) {
-  const url = `${URL}/comments/${commentID}`;
-  const config = {
-    headers: {'Authorization': APIKEY}
-  }
-
-  axios.delete(url, config);
-
-  return {
-    type: DELETE_COMMENT,
-    payload: commentID,
-    meta: {
-      post: postID
-    }
-  }
-}
-
 export function savePost (values, callback) {
   const url = `${URL}/posts`;
   const config = {
@@ -254,6 +237,23 @@ export function updatePost (postID, values, callback) {
   return {
     type: UPDATE_POST,
     payload: data
+  }
+}
+
+export function deleteComment (postID, commentID) {
+  const url = `${URL}/comments/${commentID}`;
+  const config = {
+    headers: {'Authorization': APIKEY}
+  }
+
+  axios.delete(url, config);
+
+  return {
+    type: DELETE_COMMENT,
+    payload: commentID,
+    meta: {
+      post: postID
+    }
   }
 }
 

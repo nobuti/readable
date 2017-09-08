@@ -8,7 +8,7 @@ import Score from '../score';
 import './postItem.css';
 
 const PostListItem = (props) => {
-  const {id, author, title, timestamp, comments, voteScore, votePost} = props;
+  const {id, author, title, timestamp, comments, voteScore, votePost, category} = props;
 
   const voteUp = (e) => {
     votePost(id, VOTE.UP);
@@ -21,7 +21,7 @@ const PostListItem = (props) => {
   return (
     <li className='PostItem'>
       <h2 className='PostItem-title'>
-        <Link to={`/post/${id}`}>
+        <Link to={`/${category}/${id}`}>
           {title}
         </Link>
       </h2>

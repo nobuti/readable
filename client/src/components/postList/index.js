@@ -58,7 +58,8 @@ class PostList extends Component {
   }
 
   render () {
-    const {posts} = this.props;
+    const {posts, match} = this.props;
+    const category = match.params.category || 'all';
 
     if (!posts.fetched) {
       return (
@@ -70,7 +71,7 @@ class PostList extends Component {
       <div className='Content'>
         <div className='Main'>
 
-          <Link title='Add new post' className='Rounded Add-post' to='/post/new'>
+          <Link title='Add new post' className='Rounded Add-post' to={`/${category}/new`}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path d="M256 0c-11.422 0-20.682 9.26-20.682 20.682v470.636c0 11.423 9.26 20.682 20.682 20.682 11.423 0 20.682-9.26 20.682-20.682V20.682C276.682 9.26 267.422 0 256 0z"/>
               <path d="M491.318 235.318H20.682C9.26 235.318 0 244.578 0 256c0 11.423 9.26 20.682 20.682 20.682h470.636c11.423 0 20.682-9.26 20.682-20.682 0-11.422-9.26-20.682-20.682-20.682z"/>

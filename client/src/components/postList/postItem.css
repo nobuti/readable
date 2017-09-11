@@ -34,3 +34,17 @@
 .PostItem-author {
   color: #FC6620;
 }
+
+.PostItem-delete {
+  height: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(150%);
+  width: 20px;
+}
+
+.PostItem-delete svg {
+  fill: #FC6620;
+  width: 100%;
+}

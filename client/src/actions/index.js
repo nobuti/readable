@@ -187,7 +187,7 @@ export function deletePost (postID, callback) {
   }
 
   axios.delete(url, config)
-  .then(() => callback());
+  .then(() => callback && callback());
 
   return {
     type: DELETE_POST,

@@ -10,9 +10,6 @@ class Categories extends Component {
   componentDidMount () {
     const {categories, fetchCategories, category} = this.props;
     const fetched = categories && categories.fetched;
-
-    console.log(category);
-
     !fetched && fetchCategories();
   }
 

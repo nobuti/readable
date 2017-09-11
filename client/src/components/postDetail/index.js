@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import {connect} from 'react-redux';
 import format from 'date-fns/format';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import './post.css';
 
 import {
@@ -148,7 +148,7 @@ class PostDetail extends Component {
 
       if (!post) {
         return (
-          <div>Ooops, it seems we lost that post along the way.</div>
+          <Redirect to='/404' />
         );
       }
 

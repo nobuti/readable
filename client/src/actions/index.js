@@ -1,38 +1,7 @@
 import axios from 'axios';
 
 import {URL, APIKEY} from '../config';
-
-export const FETCH_CATEGORIES = 'fetchCategories';
-export const FETCH_POSTS = 'fetchPosts';
-export const SORT_POSTS = 'sortPosts';
-export const UP_VOTE_POST = 'upVotePost';
-export const DOWN_VOTE_POST = 'downVotePost';
-export const DELETE_POST = 'deletePost';
-export const FETCH_COMMENTS = 'fetchComments';
-export const SORT_COMMENTS = 'sortComments';
-export const UP_VOTE_COMMENT = 'upVoteComment';
-export const DOWN_VOTE_COMMENT = 'downVoteComment';
-export const DELETE_COMMENT = 'deleteComment';
-export const NEW_POST = 'newPost';
-export const UPDATE_POST = 'updatePost';
-export const NEW_COMMENT = 'newComment';
-export const UPDATE_COMMENT = 'updateComment';
-
-export const SORT_POSTS_BY = {
-  VOTES: 'voteScore',
-  COMMENTS: 'comments',
-  DATE: 'timestamp'
-}
-
-export const SORT_COMMENTS_BY = {
-  VOTES: 'voteScore',
-  DATE: 'timestamp'
-}
-
-export const VOTE = {
-  UP: 'upVote',
-  DOWN: 'downVote'
-}
+import * as ActionTypes from './types';
 
 const uuidv4 = () => {
   var s = [];
@@ -57,7 +26,7 @@ export function fetchCategories () {
   const request = axios.get(url, config);
 
   return {
-    type: FETCH_CATEGORIES,
+    type: ActionTypes.FETCH_CATEGORIES,
     payload: request
   }
 }
@@ -100,7 +69,7 @@ export function fetchPosts () {
     );
 
   return {
-    type: FETCH_POSTS,
+    type: ActionTypes.FETCH_POSTS,
     payload: request
   }
 }
@@ -122,21 +91,21 @@ export function fetchComments (postID) {
     })
 
   return {
-    type: FETCH_COMMENTS,
+    type: ActionTypes.FETCH_COMMENTS,
     payload: request
   }
 }
 
 export function sortPosts (byKey) {
   return {
-    type: SORT_POSTS,
+    type: ActionTypes.SORT_POSTS,
     payload: byKey
   }
 }
 
 export function sortComments (byKey) {
   return {
-    type: SORT_COMMENTS,
+    type: ActionTypes.SORT_COMMENTS,
     payload: byKey
   }
 }
@@ -154,7 +123,7 @@ export function votePost (postID, option) {
   axios.post(url, data, config);
 
   return {
-    type: option === VOTE.UP ? UP_VOTE_POST : DOWN_VOTE_POST,
+    type: option === ActionTypes.VOTE.UP ? ActionTypes.UP_VOTE_POST : ActionTypes.DOWN_VOTE_POST,
     payload: postID
   }
 }
@@ -172,7 +141,7 @@ export function voteComment (postID, commentID, option) {
   axios.post(url, data, config);
 
   return {
-    type: option === VOTE.UP ? UP_VOTE_COMMENT : DOWN_VOTE_COMMENT,
+    type: option === ActionTypes.VOTE.UP ? ActionTypes.UP_VOTE_COMMENT : ActionTypes.DOWN_VOTE_COMMENT,
     payload: commentID,
     meta: {
       post: postID
@@ -190,7 +159,7 @@ export function deletePost (postID, callback) {
   .then(() => callback && callback());
 
   return {
-    type: DELETE_POST,
+    type: ActionTypes.DELETE_POST,
     payload: postID
   }
 }
@@ -213,7 +182,7 @@ export function savePost (values, callback) {
     .then(() => callback());
 
   return {
-    type: NEW_POST,
+    type: ActionTypes.NEW_POST,
     payload: data
   }
 }
@@ -235,7 +204,7 @@ export function updatePost (postID, values, callback) {
     .then(() => callback());
 
   return {
-    type: UPDATE_POST,
+    type: ActionTypes.UPDATE_POST,
     payload: data
   }
 }
@@ -249,7 +218,7 @@ export function deleteComment (postID, commentID) {
   axios.delete(url, config);
 
   return {
-    type: DELETE_COMMENT,
+    type: ActionTypes.DELETE_COMMENT,
     payload: commentID,
     meta: {
       post: postID
@@ -277,7 +246,7 @@ export function saveComment (postID, values, callback) {
     .then(() => callback());
 
   return {
-    type: NEW_COMMENT,
+    type: ActionTypes.NEW_COMMENT,
     payload: data
  }
 }
@@ -299,7 +268,7 @@ export function updateComment (commentID, values, callback) {
     .then(() => callback());
 
   return {
-    type: UPDATE_COMMENT,
+    type: ActionTypes.UPDATE_COMMENT,
     payload: data
   }
 }

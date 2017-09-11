@@ -88,11 +88,8 @@ class CommentEdition extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    comments: state.comments,
-    posts: state.posts
-  }
+const mapStateToProps = ({comments, posts}) => {
+  return { comments, posts };
 }
 
 export default connect(

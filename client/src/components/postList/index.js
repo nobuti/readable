@@ -87,10 +87,8 @@ class PostList extends Component {
   }
 }
 
-const mapStateToPros = (state) => {
-  return {
-    posts: state.posts
-  }
+const mapStateToPros = ({posts}) => {
+  return { posts };
 }
 
 export default connect(mapStateToPros, {fetchPosts})(PostList);

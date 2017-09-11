@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {SORT_COMMENTS_BY, sortComments} from '../../actions';
+import {sortComments} from '../../actions';
+import {SORT_COMMENTS_BY} from '../../actions/types';
 
 export const LABEL = {
   voteScore: 'Top',

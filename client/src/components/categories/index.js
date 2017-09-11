@@ -8,7 +8,7 @@ import {fetchCategories} from '../../actions';
 
 class Categories extends Component {
   componentDidMount () {
-    const {categories, fetchCategories, category} = this.props;
+    const {categories, fetchCategories} = this.props;
     const fetched = categories && categories.fetched;
     !fetched && fetchCategories();
   }
@@ -50,10 +50,8 @@ class Categories extends Component {
   }
 }
 
-const mapStateToPros = (state) => {
-  return {
-    categories: state.categories
-  }
+const mapStateToPros = ({categories}) => {
+  return { categories };
 }
 
 export default connect(mapStateToPros, {fetchCategories})(Categories);

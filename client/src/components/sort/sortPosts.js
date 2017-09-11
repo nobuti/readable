@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {SORT_POSTS_BY, sortPosts} from '../../actions';
+import {sortPosts} from '../../actions';
+import {SORT_POSTS_BY} from '../../actions/types';
+
 import './sort.css';
 
 export const LABEL = {

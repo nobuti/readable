@@ -87,11 +87,8 @@ class PostEdition extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    categories: state.categories,
-    posts: state.posts
-  }
+const mapStateToProps = ({categories, posts}) => {
+  return { categories, posts };
 }
 
 export default connect(mapStateToProps,

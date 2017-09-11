@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import './categories.css';
 
@@ -8,8 +8,11 @@ import {fetchCategories} from '../../actions';
 
 class Categories extends Component {
   componentDidMount () {
-    const {categories, fetchCategories} = this.props;
+    const {categories, fetchCategories, category} = this.props;
     const fetched = categories && categories.fetched;
+
+    console.log(category);
+
     !fetched && fetchCategories();
   }
 
@@ -33,12 +36,6 @@ class Categories extends Component {
     });
   }
 
-  isCategoryAllowed () {
-    const {categories, category} = this.props;
-    const all =['all',...categories.data.map(category => category.name)]
-    return all.indexOf(category) >= 0;
-  }
-
   render () {
     const {categories} = this.props;
     const {fetched} = categories;
@@ -47,18 +44,12 @@ class Categories extends Component {
       return null;
     }
 
-    if (fetched && !this.isCategoryAllowed()) {
-      return (
-        <Redirect to='/404'/>
-      );
-    } else {
-      return (
-        <ul className='Categories'>
-          {this.renderCategory('all', '')}
-          {this.renderCategories(categories.data)}
-        </ul>
-      );
-    }
+    return (
+      <ul className='Categories'>
+        {this.renderCategory('all', '')}
+        {this.renderCategories(categories.data)}
+      </ul>
+    );
   }
 }
 

@@ -20,7 +20,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddlewares(reducers)}>
     <Router>
       <div className="Container">
-        <Header />
+        <Route component={Header} />
 
         <Switch className="Content">
           <Route path='/' exact component={PostList} />

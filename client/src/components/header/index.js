@@ -1,27 +1,37 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {matchPath} from 'react-router-dom';
 
 import './header.css';
 
 import Logo from '../logo';
 import Categories from '../categories';
 
-const Header = () => {
+const Header = ({location}) => {
+  const getCurrentCategory = () => {
+    let category = [];
+    ['/', '/category/:category'].reduce((memo, path) => {
+      const match = matchPath(location.pathname, {
+        path: path,
+        exact: true
+      });
+
+      if (match) {
+        memo.push(match.params.category || 'all');
+      }
+
+      return memo;
+    }, category);
+
+    return category.length > 0 ? category[0] : null;
+  }
+
   return (
     <div className="Header">
       <div className='Left'>
         <Logo />
       </div>
       <div className='Main'>
-      {
-        ['/', '/category/:category'].map((path) => {
-          return (
-            <Route exact key={ path} path={ path} render={({match}) => (
-              <Categories category={match.params.category || 'all'}/>
-            )}/>
-          );
-        })
-      }
+        <Categories category={getCurrentCategory()}/>
       </div>
     </div>
   )

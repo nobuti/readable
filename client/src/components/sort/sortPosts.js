@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {sortPosts} from '../../actions';
+import {sortPosts} from '../../actions/posts';
 import {SORT_POSTS_BY} from '../../actions/types';
 
 import './sort.css';

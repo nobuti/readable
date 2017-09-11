@@ -3,12 +3,8 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import PostForm from './postForm';
-import {
-  fetchCategories,
-  fetchPosts,
-  savePost,
-  updatePost
-} from '../../actions';
+import {fetchCategories} from '../../actions/categories';
+import {fetchPosts, savePost, updatePost} from '../../actions/posts';
 import Loading from '../loading';
 
 class PostEdition extends Component {

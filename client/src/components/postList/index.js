@@ -6,7 +6,7 @@ import {SortPosts} from '../sort';
 import PostListItem from './postListItem';
 import Loading from '../loading';
 
-import {fetchPosts} from '../../actions';
+import {fetchPosts} from '../../actions/posts';
 
 import './postList.css';
 

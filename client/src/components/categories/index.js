@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 import './categories.css';
 
-import {fetchCategories} from '../../actions';
+import {fetchCategories} from '../../actions/categories';
 
 class Categories extends Component {
   componentDidMount () {

@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import CommentForm from './commentForm';
-import {fetchPosts, fetchComments, saveComment, updateComment} from '../../actions';
+import {fetchPosts} from '../../actions/posts';
+import {fetchComments, saveComment, updateComment} from '../../actions/comments';
 
 class CommentEdition extends Component {
   componentDidMount () {

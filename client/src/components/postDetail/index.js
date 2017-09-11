@@ -4,12 +4,8 @@ import format from 'date-fns/format';
 import {Link, Redirect} from 'react-router-dom';
 import './post.css';
 
-import {
-  fetchPosts,
-  fetchComments,
-  votePost,
-  deletePost
-} from '../../actions';
+import {fetchPosts, votePost, deletePost} from '../../actions/posts';
+import {fetchComments} from '../../actions/comments';
 import {VOTE} from '../../actions/types';
 import {SortComments} from '../sort';
 import Comment from '../commentDetail';

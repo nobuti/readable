@@ -5,7 +5,7 @@ import format from 'date-fns/format';
 
 import './comment.css';
 
-import {voteComment, deleteComment} from '../../actions';
+import {voteComment, deleteComment} from '../../actions/comments';
 import {VOTE} from '../../actions/types';
 
 import Score from '../score';

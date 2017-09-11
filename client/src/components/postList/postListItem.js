@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {votePost, deletePost} from '../../actions';
+import {votePost, deletePost} from '../../actions/posts';
 import {VOTE} from '../../actions/types';
 import format from 'date-fns/format';
 import Score from '../score';

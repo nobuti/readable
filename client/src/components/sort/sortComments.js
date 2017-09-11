@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {sortComments} from '../../actions';
+import {sortComments} from '../../actions/comments';
 import {SORT_COMMENTS_BY} from '../../actions/types';
 
 export const LABEL = {
